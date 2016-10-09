@@ -40,6 +40,6 @@ public class LinePlotterAdapter implements IPlotter
     @Override
     public String toString()
     {
-        return "Simulated plotter adapter";
+        return "Line plotter adapter";
     }
 }
