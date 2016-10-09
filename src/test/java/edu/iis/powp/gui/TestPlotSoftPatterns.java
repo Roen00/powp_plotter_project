@@ -2,12 +2,14 @@ package edu.iis.powp.gui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.iis.client.plottermagic.ClientPlotter;
 import edu.iis.client.plottermagic.IPlotter;
-import edu.iis.powp.adapter.MyAdapter;
+import edu.iis.client.plottermagic.preset.FiguresJoe;
+import edu.iis.powp.adapter.SimulatedPlotterAdapter;
 import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
@@ -28,9 +30,10 @@ public class TestPlotSoftPatterns
 	 * @param context Application context.
 	 */
 	private static void setupPresetTests(Context context) {
-	    SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener();
-		
-		context.addTest("Figure Joe 1", selectTestFigureOptionListener);	        
+		ActionListener fj1 = e -> FiguresJoe.figureScript1(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		ActionListener fj2 = e -> FiguresJoe.figureScript2(Application.getComponent(DriverManager.class).getCurrentPlotter());
+		context.addTest("Figure Joe 1", fj1);
+		context.addTest("Figure Joe 2", fj2);
 	}
 
 	/**
@@ -42,8 +45,10 @@ public class TestPlotSoftPatterns
 		IPlotter clientPlotter = new ClientPlotter();
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
-		
-		IPlotter plotter = new MyAdapter();
+
+		DrawPanelController drawPanelController = ApplicationWithDrawer.getDrawPanelController();
+
+		IPlotter plotter = new SimulatedPlotterAdapter(drawPanelController);
 		context.addDriver("Buggy Simulator", plotter);
 
 		context.updateDriverInfo();
@@ -89,7 +94,7 @@ public class TestPlotSoftPatterns
                 ApplicationWithDrawer.configureApplication();
                 Context context = Application.getComponent(Context.class);
                 
-                setupDefaultDrawerVisibilityManagement(context);
+                //setupDefaultDrawerVisibilityManagement(context);
                 
             	setupDrivers(context);
             	setupPresetTests(context);
