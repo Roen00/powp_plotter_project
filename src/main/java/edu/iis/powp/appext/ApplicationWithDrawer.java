@@ -9,30 +9,30 @@ import edu.kis.powp.drawer.panel.DrawPanelController;
 /**
  * Application.
  */
-public enum ApplicationWithDrawer {
-	INSTANCE;
-    private boolean isAppCreated = false;
+public class ApplicationWithDrawer {
 
-    /**
-     * Startup configuration.
-     */
-	public synchronized void configureApplication()
+	private static boolean isAppCreated = false;
+
+	/**
+	 * Startup configuration.
+	 */
+	public synchronized static void configureApplication()
 	{
-	    if (!isAppCreated)
-	    {
-	    	isAppCreated = true;
+		if (!isAppCreated)
+		{
+			isAppCreated = true;
 
-	    	Application.configureApplication();
+			Application.configureApplication();
 
-	        Application.addComponent(DriverManager.class);
-	        Application.addComponent(Context.class);
+			Application.addComponent(DriverManager.class);
+			Application.addComponent(Context.class);
 
-	        Context context = Application.getComponent(Context.class);
+			Context context = Application.getComponent(Context.class);
 
-	        setupDrawerPlugin(context);
+			setupDrawerPlugin(context);
 
-	        context.setVisibility(true);
-	    }
+			context.setVisibility(true);
+		}
 	}
 
 	/**
@@ -40,22 +40,22 @@ public enum ApplicationWithDrawer {
 	 *
 	 * @param context Application context.
 	 */
-	private void setupDrawerPlugin(Context context) {
+	private static void setupDrawerPlugin(Context context) {
 		SelectClearPanelOptionListener selectClearPanelOptionListener = new SelectClearPanelOptionListener();
 
 		Application.addComponent(DrawPanelController.class);
 		context.addComponentMenu(DrawPanelController.class, "Draw Panel", 0);
 		context.addComponentMenuElement(DrawPanelController.class, "Clear Panel", selectClearPanelOptionListener);
 
-        getDrawPanelController().initialize(context.getFreePanel());
+		getDrawPanelController().initialize(context.getFreePanel());
 	}
 
-	 /**
-     * Get controller of application drawing panel.
-     *
-     * @return drawPanelController.
-     */
-	public DrawPanelController getDrawPanelController() {
+	/**
+	 * Get controller of application drawing panel.
+	 *
+	 * @return drawPanelController.
+	 */
+	public static DrawPanelController getDrawPanelController() {
 		return Application.getComponent(DrawPanelController.class);
 	}
 

@@ -1,9 +1,9 @@
 package edu.iis.powp.drawer;
 
+import edu.iis.powp.line.LineSingletonFactory;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 import edu.kis.powp.drawer.shape.ILine;
-import edu.kis.powp.drawer.shape.LineFactory;
 
 /**
  * Drawer test.
@@ -19,7 +19,7 @@ public class TestDrawer
     {
         DrawPanelController controller = new DrawPanelController();
         DefaultDrawerFrame.getDefaultDrawerFrame().setVisible(true);
-        ILine line = LineFactory.getBasicLine();
+        ILine line = LineSingletonFactory.INSTANCE.getBasicLine();
         line.setStartCoordinates(-100, -60);
         line.setEndCoordinates(60, 130);
         controller.drawLine(line);

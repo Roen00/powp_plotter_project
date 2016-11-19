@@ -16,10 +16,9 @@ import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
 import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
-import edu.iis.powp.events.predefine.SelectTestFigureOptionListener;
+import edu.iis.powp.line.LineSingletonFactory;
 import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
-import edu.kis.powp.drawer.shape.LineFactory;
 
 
 public class TestPlotSoftPatterns
@@ -48,11 +47,11 @@ public class TestPlotSoftPatterns
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
 
-		DrawPanelController drawPanelController = ApplicationWithDrawer.INSTANCE.getDrawPanelController();
+		DrawPanelController drawPanelController = ApplicationWithDrawer.getDrawPanelController();
 
 		context.addDriver("Buggy Simulator - basic line", new SimulatedPlotterAdapter(drawPanelController));
-		context.addDriver("Buggy Simulator - dotted line", new LinePlotterAdapter(drawPanelController, LineFactory.getDottedLine()));
-		context.addDriver("Buggy Simulator - special line", new LinePlotterAdapter(drawPanelController, LineFactory.getSpecialLine()));
+		context.addDriver("Buggy Simulator - dotted line", new LinePlotterAdapter(drawPanelController, LineSingletonFactory.INSTANCE.getDottedLine()));
+		context.addDriver("Buggy Simulator - special line", new LinePlotterAdapter(drawPanelController, LineSingletonFactory.INSTANCE.getSpecialLine()));
 
 		context.updateDriverInfo();
 	}
@@ -90,20 +89,13 @@ public class TestPlotSoftPatterns
      */
     public static void main(String[] args)
     {
-        EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                ApplicationWithDrawer.INSTANCE.configureApplication();
-                Context context = Application.getComponent(Context.class);
-                
-                //setupDefaultDrawerVisibilityManagement(context);
-                
-            	setupDrivers(context);
-            	setupPresetTests(context);
-            	setupLogger(context);
-            }
+        EventQueue.invokeLater(() -> {
+            ApplicationWithDrawer.configureApplication();
+            Context context = Application.getComponent(Context.class);
 
+            setupDrivers(context);
+            setupPresetTests(context);
+            setupLogger(context);
         });
     }
 
