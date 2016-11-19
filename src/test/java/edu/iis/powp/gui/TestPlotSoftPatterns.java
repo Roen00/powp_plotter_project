@@ -15,9 +15,7 @@ import edu.iis.powp.app.Application;
 import edu.iis.powp.app.Context;
 import edu.iis.powp.app.DriverManager;
 import edu.iis.powp.appext.ApplicationWithDrawer;
-import edu.iis.powp.events.predefine.SelectChangeVisibleOptionListener;
 import edu.iis.powp.line.LineSingletonFactory;
-import edu.kis.powp.drawer.panel.DefaultDrawerFrame;
 import edu.kis.powp.drawer.panel.DrawPanelController;
 
 
@@ -56,18 +54,6 @@ public class TestPlotSoftPatterns
 		context.updateDriverInfo();
 	}
 
-	/**
-	 * Auxiliary routines to enable using Buggy Simulator.
-	 * 
-	 * @param context Application context.
-	 */
-	private static void setupDefaultDrawerVisibilityManagement(Context context) {
-		DefaultDrawerFrame defaultDrawerWindow = DefaultDrawerFrame.getDefaultDrawerFrame();
-        context.addComponentMenuElementWithCheckBox(DrawPanelController.class, "Default Drawer Visibility", 
-        		new SelectChangeVisibleOptionListener(defaultDrawerWindow), true);
-        defaultDrawerWindow.setVisible(true);
-	}
-	
 	/**
 	 * Setup menu for adjusting logging settings.
 	 * 
