@@ -32,6 +32,8 @@ public class SimulatedPlotterAdapter implements IPlotter
         ILine line = LineFactory.getBasicLine();
     	line.setStartCoordinates(this.startX, this.startY);
         line.setEndCoordinates(x, y);
+        setPosition(x,y);
+
 
 		drawPanelController.drawLine(line);
     }

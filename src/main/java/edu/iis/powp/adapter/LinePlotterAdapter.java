@@ -20,7 +20,7 @@ public class LinePlotterAdapter implements IPlotter
         this.drawPanelController = drawPanelController;
         this.line = line;
     }
-
+//TODO: usunąć simulatedplotter? i zastąpić to adapterem, tym adapterem
     @Override
     public void setPosition(int x, int y)
     {
@@ -33,7 +33,7 @@ public class LinePlotterAdapter implements IPlotter
     {
         line.setStartCoordinates(this.startX, this.startY);
         line.setEndCoordinates(x, y);
-
+        setPosition(x,y);
         drawPanelController.drawLine(line);
     }
 

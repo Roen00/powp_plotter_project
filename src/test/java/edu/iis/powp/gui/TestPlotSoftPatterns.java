@@ -48,7 +48,7 @@ public class TestPlotSoftPatterns
 		context.addDriver("Client Plotter", clientPlotter);
 		Application.getComponent(DriverManager.class).setCurrentPlotter(clientPlotter);
 
-		DrawPanelController drawPanelController = ApplicationWithDrawer.getDrawPanelController();
+		DrawPanelController drawPanelController = ApplicationWithDrawer.INSTANCE.getDrawPanelController();
 
 		context.addDriver("Buggy Simulator - basic line", new SimulatedPlotterAdapter(drawPanelController));
 		context.addDriver("Buggy Simulator - dotted line", new LinePlotterAdapter(drawPanelController, LineFactory.getDottedLine()));
@@ -94,7 +94,7 @@ public class TestPlotSoftPatterns
         {
             public void run()
             {
-                ApplicationWithDrawer.configureApplication();
+                ApplicationWithDrawer.INSTANCE.configureApplication();
                 Context context = Application.getComponent(Context.class);
                 
                 //setupDefaultDrawerVisibilityManagement(context);
